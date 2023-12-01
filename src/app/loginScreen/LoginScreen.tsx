@@ -1,4 +1,5 @@
 import { Form, Input, Typography, Button, Col, Row } from "antd";
+import { Link } from "react-router-dom";
 import "./_login_screen.css";
 
 const LoginScreen = () => {
@@ -8,7 +9,7 @@ const LoginScreen = () => {
     <div className="login-screen">
       <Typography.Title>Welcome to my app</Typography.Title>
       <div>
-        <Form layout="vertical" className="login-form">
+        <Form layout="vertical" className="login-form" form={form}>
           <Row>
             <Col span={24}>
               <Form.Item name={"email"} label="Email address">
@@ -39,7 +40,9 @@ const LoginScreen = () => {
             </Row>
             <Row justify="center" align="middle">
               <Typography.Text>Don't have an account?</Typography.Text>{" "}
-              <Button type="link">Create one now.</Button>
+              <Button type="link">
+                <Link to={"/signup"}>Create one now</Link>
+              </Button>
             </Row>
           </Col>
         </Form>
