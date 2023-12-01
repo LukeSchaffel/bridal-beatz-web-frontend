@@ -1,0 +1,10 @@
+.login-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login-form {
+  max-width: 600px;
+}
