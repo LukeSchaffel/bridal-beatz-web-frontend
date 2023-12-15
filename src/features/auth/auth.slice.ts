@@ -1,0 +1,54 @@
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState, AppThunk } from '../../app/store'
+import { message } from 'antd'
+
+import { api } from '../../utils/api'
+
+export interface AuthState {
+	authUser: any //CHANGE THIS
+	status: 'idle' | 'pending' | 'failed'
+}
+
+const initialState: AuthState = {
+	authUser: null,
+	status: 'idle',
+}
+
+export const signup = createAsyncThunk('auth/signup', async (values: any) => {
+	values = {
+		...values,
+		email: values.email.toLowerCase(),
+	}
+	const { data } = await api.post('/auth/signup', values)
+})
+
+export const login = createAsyncThunk<any, any>('auth/login', async (values) => {
+	const email = values.email.toLowerCase()
+	const password = values.password
+
+	const { data } = await api.post('/auth/login', { email, password })
+
+	localStorage.setItem('access_token', data.token)
+	return data.user
+})
+
+export const authSlice = createSlice({
+	name: 'auth',
+	initialState,
+	reducers: {
+		resetAuthState: () => initialState,
+	},
+	extraReducers: (builder) => {
+		builder
+			.addCase(login.pending, (state) => {
+				state.status = 'pending'
+			})
+			.addCase(login.fulfilled, (state, { payload }) => {
+				state.authUser = payload
+				state.status = 'idle'
+			})
+			.addCase(login.rejected, (state) => {
+				state.status = 'failed'
+			})
+	},
+})
