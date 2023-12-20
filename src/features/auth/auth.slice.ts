@@ -6,11 +6,13 @@ import { api } from '../../utils/api'
 
 export interface AuthState {
 	authUser: any //TODO change this
+	account: any //TODO change this
 	status: 'idle' | 'pending' | 'failed'
 }
 
 const initialState: AuthState = {
 	authUser: null,
+	account: null,
 	status: 'idle',
 }
 
@@ -46,6 +48,7 @@ export const authSlice = createSlice({
 			localStorage.clear()
 			sessionStorage.clear()
 			state.authUser = null
+			state.account = null
 			state.status = 'idle'
 		},
 	},
@@ -56,6 +59,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(login.fulfilled, (state, { payload }) => {
 				state.authUser = payload
+				state.account = payload.accounts[0]
 				state.status = 'idle'
 			})
 			.addCase(login.rejected, (state) => {
@@ -67,6 +71,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(refreshUser.fulfilled, (state, { payload }) => {
 				state.authUser = payload
+				state.account = payload.accounts[0]
 				state.status = 'idle'
 			})
 			.addCase(refreshUser.rejected, (state) => {

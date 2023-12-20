@@ -1,15 +1,26 @@
-import { Button, Layout, Spin } from 'antd'
+import { Button, Layout, Spin, theme } from 'antd'
 
 import DashboardProvider from '../dashboardProvider/DashboardProvider'
+import Sidebar from '../sidebar/Sidebar'
+import Navbar from '../navbar/Navbar'
 
 const { Header, Sider, Content, Footer } = Layout
+const { useToken } = theme
 
 const DashboardLayout = () => {
+	const { token } = useToken()
+
+	const styles = { borderBottom: `1px solid ${token.colorBorder}` }
+
 	return (
 		<Layout style={{ height: '100%' }}>
-			<Header>header</Header>
+			<Header style={styles}>
+				<Navbar />
+			</Header>
 			<Layout>
-				<Sider>left sidebar</Sider>
+				{/* <Sider style={styles}>
+					<Sidebar />
+				</Sider> */}
 				<Content>
 					<DashboardProvider></DashboardProvider>
 				</Content>
