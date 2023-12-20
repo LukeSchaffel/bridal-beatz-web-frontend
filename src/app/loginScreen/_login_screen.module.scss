@@ -1,0 +1,18 @@
+.loginScreen {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	height: 100%;
+}
+
+.formContainer {
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+	flex-wrap: wrap-reverse;
+}
+
+.loginForm {
+	max-width: 600px;
+	padding: 1rem;
+}

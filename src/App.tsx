@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { ConfigProvider } from 'antd'
 
 import { useAppDispatch } from './app/hooks'
 import { useTypedSelector } from './app/hooks'
@@ -17,9 +18,23 @@ function App() {
 	}, [])
 
 	return (
-		<div className="App">
-			<AppRouter />
-		</div>
+		<ConfigProvider
+			theme={{
+				token: {
+					colorPrimary: '#025464',
+					colorInfo: '#025464',
+					colorSuccess: '#e8aa42',
+					borderRadius: 9,
+					colorWarning: '#e98417',
+					colorError: '#e75557',
+					colorPrimaryBg: '#93a3a380',
+				},
+			}}
+		>
+			<div className="App">
+				<AppRouter />
+			</div>
+		</ConfigProvider>
 	)
 }
 

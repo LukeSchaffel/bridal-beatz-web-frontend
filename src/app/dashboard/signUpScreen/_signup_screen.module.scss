@@ -1,0 +1,14 @@
+.signupScreen {
+	height: 100vh;
+	padding: 1rem;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.signupForm {
+	max-width: 600px;
+}
