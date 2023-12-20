@@ -1,11 +1,8 @@
-import {  Navigate, Outlet } from 'react-router-dom'
-import { useTypedSelector } from '../hooks'
-
-
+import { Navigate, Outlet } from 'react-router-dom'
+import { checkForUser } from '../../features/auth/auth.service'
 
 const PrivateRoutes = () => {
-	const { authUser } = useTypedSelector((state) => state.auth)
-	
-	return authUser ? <Outlet /> : <Navigate to="/login" />
+	const isVerified = checkForUser()
+	return isVerified ? <Outlet /> : <Navigate to="/login" />
 }
 export default PrivateRoutes

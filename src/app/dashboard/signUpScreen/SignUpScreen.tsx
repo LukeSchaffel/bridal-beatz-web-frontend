@@ -1,16 +1,26 @@
+import { useEffect } from 'react'
 import { Form, Input, Typography, Button, Col, Row, Select } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './_signup_screen.scss'
+
 import { signup } from '../../../features/auth/auth.slice'
-import { useAppDispatch } from '../../hooks'
+import { useAppDispatch, useTypedSelector } from '../../hooks'
 
 const SignUpScreen = () => {
 	const dispatch = useAppDispatch()
 	const [form] = Form.useForm()
+	const { authUser } = useTypedSelector((state) => state.auth)
+	const navigate = useNavigate()
 
 	const handleSubmit = (values: any) => {
 		dispatch(signup(values))
 	}
+
+	useEffect(() => {
+		if (authUser) {
+			navigate('/dashboard')
+		}
+	}, [authUser])
 
 	return (
 		<div className="signup-screen">

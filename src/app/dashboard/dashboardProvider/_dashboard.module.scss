@@ -1,0 +1,11 @@
+.main {
+	height: 100%;
+	width: 100%;
+}
+
+.spinContainer {
+	@extend .main;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

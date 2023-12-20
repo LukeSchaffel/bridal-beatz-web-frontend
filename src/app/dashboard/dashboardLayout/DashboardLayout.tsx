@@ -1,18 +1,22 @@
-import { Layout } from "antd";
+import { Button, Layout, Spin } from 'antd'
 
-const { Header, Sider, Content, Footer } = Layout;
+import DashboardProvider from '../dashboardProvider/DashboardProvider'
+
+const { Header, Sider, Content, Footer } = Layout
 
 const DashboardLayout = () => {
-  return (
-    <Layout style={{ height: "100%" }}>
-      <Header>header</Header>
-      <Layout>
-        <Sider>left sidebar</Sider>
-        <Content>main content</Content>
-      </Layout>
-      <Footer>footer</Footer>
-    </Layout>
-  );
-};
+	return (
+		<Layout style={{ height: '100%' }}>
+			<Header>header</Header>
+			<Layout>
+				<Sider>left sidebar</Sider>
+				<Content>
+					<DashboardProvider></DashboardProvider>
+				</Content>
+			</Layout>
+			{/* <Footer>footer</Footer> */}
+		</Layout>
+	)
+}
 
-export default DashboardLayout;
+export default DashboardLayout

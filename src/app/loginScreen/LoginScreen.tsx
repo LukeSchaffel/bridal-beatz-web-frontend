@@ -6,16 +6,24 @@ import { useNavigate } from 'react-router-dom'
 
 import { login } from '../../features/auth/auth.slice'
 import './_login_screen.css'
+import { useEffect } from 'react'
 
 const LoginScreen = () => {
+	const { authUser } = useTypedSelector((state) => state.auth)
 	const dispatch = useAppDispatch()
 	const [form] = Form.useForm()
-  const navigate = useNavigate()
-  
+	const navigate = useNavigate()
+
 	const handleLogin = async (values: any) => {
 		await dispatch(login(values))
-    navigate('/dashboard')
+		navigate('/dashboard')
 	}
+
+	useEffect(() => {
+		if (authUser) {
+			navigate('/dashboard')
+		}
+	}, [authUser])
 
 	return (
 		<div className="login-screen">

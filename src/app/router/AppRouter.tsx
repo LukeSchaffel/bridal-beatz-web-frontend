@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom'
 
 import DashboardLayout from '../dashboard/dashboardLayout/DashboardLayout'
 import LoginScreen from '../loginScreen/LoginScreen'
@@ -10,6 +10,7 @@ const AppRouter = () => {
 		<BrowserRouter>
 			<Routes>
 				{/* PUBLIC */}
+				<Route index Component={LoginScreen} />
 				<Route path="/login" Component={LoginScreen} />
 				<Route path="/signup" Component={SignUpScreen} />
 
