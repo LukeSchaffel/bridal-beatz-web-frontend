@@ -16,7 +16,7 @@ const AppRouter = () => {
 
 				{/* PRIVATE (LOGGED IN) */}
 				<Route element={<PrivateRoutes />}>
-					<Route path="dashboard" element={<DashboardLayout />} />
+					<Route path="/dashboard/*" element={<DashboardLayout />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

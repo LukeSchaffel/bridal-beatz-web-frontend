@@ -15,7 +15,7 @@ import styles from './_login_screen.module.scss'
 const { useToken } = theme
 
 const LoginScreen = () => {
-	const { authUser } = useTypedSelector((state) => state.auth)
+	const { authUser, status } = useTypedSelector((state) => state.auth)
 	const dispatch = useAppDispatch()
 	const [form] = Form.useForm()
 	const navigate = useNavigate()
@@ -70,7 +70,7 @@ const LoginScreen = () => {
 										</Button>
 									</Row>
 									<Row align="middle" justify="center">
-										<Button type="primary" color="danger" size="large" style={{ width: '100%' }} htmlType="submit">
+										<Button type="primary" color="danger" size="large" style={{ width: '100%' }} htmlType="submit" loading={status === 'pending'}>
 											Login
 										</Button>
 									</Row>

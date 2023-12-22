@@ -30,6 +30,7 @@ function App() {
 					colorPrimaryBg: '#93a3a380',
 				},
 			}}
+			getPopupContainer={(triggerNode) => triggerNode?.parentElement || document.body}
 		>
 			<div className="App">
 				<AppRouter />

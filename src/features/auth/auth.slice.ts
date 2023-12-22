@@ -22,6 +22,8 @@ export const signup = createAsyncThunk('auth/signup', async (values: any) => {
 		email: values.email.toLowerCase(),
 	}
 	const { data } = await api.post('/auth/signup', values)
+	localStorage.setItem('access_token', data.token)
+	return data.authUser
 })
 
 export const login = createAsyncThunk<any, any>('auth/login', async (values) => {
@@ -63,6 +65,17 @@ export const authSlice = createSlice({
 				state.status = 'idle'
 			})
 			.addCase(login.rejected, (state) => {
+				state.status = 'failed'
+			})
+			.addCase(signup.pending, (state) => {
+				state.status = 'pending'
+			})
+			.addCase(signup.fulfilled, (state, { payload }) => {
+				state.authUser = payload
+				state.account = payload.accounts[0]
+				state.status = 'idle'
+			})
+			.addCase(signup.rejected, (state) => {
 				state.status = 'failed'
 			})
 

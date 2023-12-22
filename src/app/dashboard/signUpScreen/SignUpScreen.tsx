@@ -19,6 +19,7 @@ const SignUpScreen = () => {
 
 	const handleSubmit = (values: any) => {
 		dispatch(signup(values))
+		navigate('/dashboard')
 	}
 
 	useEffect(() => {
