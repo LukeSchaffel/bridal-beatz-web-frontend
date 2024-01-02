@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, ThemeConfig } from 'antd'
 
 import { useAppDispatch } from './app/hooks'
 import { useTypedSelector } from './app/hooks'
@@ -17,18 +17,21 @@ function App() {
 		isVerified && dispatch(refreshUser())
 	}, [])
 
+	const token: ThemeConfig['token'] = {
+		colorPrimary: '#025464',
+		colorInfo: '#025464',
+		colorSuccess: '#e8aa42',
+		borderRadius: 9,
+		colorWarning: '#e98417',
+		colorError: '#e75557',
+		colorPrimaryBg: '#93a3a380',
+		colorTextSecondary: '#025464',
+	}
+
 	return (
 		<ConfigProvider
 			theme={{
-				token: {
-					colorPrimary: '#025464',
-					colorInfo: '#025464',
-					colorSuccess: '#e8aa42',
-					borderRadius: 9,
-					colorWarning: '#e98417',
-					colorError: '#e75557',
-					colorPrimaryBg: '#93a3a380',
-				},
+				token,
 			}}
 			getPopupContainer={(triggerNode) => triggerNode?.parentElement || document.body}
 		>

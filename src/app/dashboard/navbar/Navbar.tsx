@@ -36,7 +36,11 @@ const Navbar = () => {
 	const handleLogout = () => {
 		confirm({
 			title: 'Are you sure you want to logout?',
-			onOk: () => dispatch(logout),
+			onOk: () => {
+				console.log('logging out')
+
+				dispatch(logout())
+			},
 		})
 	}
 

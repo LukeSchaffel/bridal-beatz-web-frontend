@@ -1,16 +1,14 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes } from 'react-router-dom'
 
-import HomePage from "../homePage/HomePage"
+import HomePage from '../homePage/HomePage'
+import Profile from '../profile/Profile'
 
 const DashboardRouter = () => {
-
 	return (
 		<Routes>
 			{/* PUBLIC */}
 			<Route path={'/home'} Component={HomePage} />
-			<Route path={'/profile'} element={<>Profile</>} />
-
-    
+			<Route path={'/profile'} Component={Profile} />
 		</Routes>
 	)
 }
