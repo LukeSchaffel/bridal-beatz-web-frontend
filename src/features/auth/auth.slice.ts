@@ -45,7 +45,7 @@ export const updateAccount = createAsyncThunk<AuthState['account'], any>(
 	'auth/updateAccount',
 	async (values, { getState }) => {
 		const { account } = (getState() as RootState).auth ?? {}
-		const { data } = await api.patch(`/auth/updateAccount/${account.account_id}`, values)
+		const { data } = await api.patch(`/accounts/updateAccount/${account.account_id}`, values)
 		return data.data
 	}
 )
