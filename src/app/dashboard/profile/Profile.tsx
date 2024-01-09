@@ -3,6 +3,7 @@ import styles from './_profile.module.scss'
 import { useTypedSelector } from '../../hooks'
 import { theme } from 'antd'
 
+import { capitalize } from 'lodash'
 import { Widget } from '../../components'
 import UpdateProfileForm from './UpdateProfileForm'
 import { useState } from 'react'
@@ -43,7 +44,9 @@ const Profile = () => {
 		{
 			key: '6',
 			label: 'Interested in:',
-			children: <Text>{account?.genre?.map((genre: any, i: number) => <span key={i}>{genre}</span>) || '-'}</Text>,
+			children: (
+				<Text>{account?.genre?.map((genre: any, i: number) => <span key={i}>{capitalize(genre)} </span>) || '-'}</Text>
+			),
 		},
 		{
 			key: '7',

@@ -7,7 +7,7 @@ import { api } from '../../utils/api'
 export interface AuthState {
 	authUser: any //TODO change this
 	account: any //TODO change this
-	status: 'idle' | 'pending' | 'failed'
+	status: 'idle' | 'pending' | 'failed' | 'fulfilled'
 }
 
 const initialState: AuthState = {
@@ -40,6 +40,15 @@ export const refreshUser = createAsyncThunk<any>('auth/refreshUser', async () =>
 	const { data } = await api.post('/auth/refreshUser')
 	return data.authUser
 })
+
+export const updateAccount = createAsyncThunk<AuthState['account'], any>(
+	'auth/updateAccount',
+	async (values, { getState }) => {
+		const { account } = (getState() as RootState).auth ?? {}
+		const { data } = await api.patch(`/auth/updateAccount/${account.account_id}`, values)
+		return data.data
+	}
+)
 
 export const authSlice = createSlice({
 	name: 'auth',
@@ -88,6 +97,16 @@ export const authSlice = createSlice({
 				state.status = 'idle'
 			})
 			.addCase(refreshUser.rejected, (state) => {
+				state.status = 'failed'
+			})
+			.addCase(updateAccount.pending, (state) => {
+				state.status = 'pending'
+			})
+			.addCase(updateAccount.fulfilled, (state, { payload }) => {
+				state.account = payload
+				state.status = 'fulfilled'
+			})
+			.addCase(updateAccount.rejected, (state) => {
 				state.status = 'failed'
 			})
 	},
