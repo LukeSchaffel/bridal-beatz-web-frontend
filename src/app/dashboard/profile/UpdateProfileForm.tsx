@@ -1,8 +1,10 @@
-import { Form, Input, Modal, Select } from 'antd'
+import { Button, Col, Divider, Form, Input, Modal, Row, Select } from 'antd'
 import { useTypedSelector, useAppDispatch } from '../../hooks'
 import { GenreSelect } from '../../components'
+import { DeleteOutlined } from '@ant-design/icons'
 
 import { updateAccount } from '../../../features/auth/auth.slice'
+import { useState } from 'react'
 
 type TUpdateProfileFormProps = {
 	modal: any
@@ -12,7 +14,10 @@ type TUpdateProfileFormProps = {
 const UpdateProfileForm = ({ modal, setModal }: TUpdateProfileFormProps) => {
 	const [form] = Form.useForm()
 	const { account, status } = useTypedSelector((state) => state.auth)
+	const locations = Form.useWatch('locations', form)
 	const dispatch = useAppDispatch()
+	const [additionalLocations, setAdditionalLocations] = useState<number>(0)
+	console.log(locations)
 
 	const handleClose = () => {
 		setModal(null)
@@ -141,6 +146,47 @@ const UpdateProfileForm = ({ modal, setModal }: TUpdateProfileFormProps) => {
 					<Form.Item name="genre" label="Genre (select all that apply)">
 						<Select mode="multiple" options={options} />
 					</Form.Item>
+					<Form.List name={'locations'}>
+						{(fields, { add, remove }) => (
+							<div>
+								{fields.map((field, i) => {
+									return (
+										<Row gutter={[0, 0]} key={i} wrap={false} align={'middle'}>
+											<Col flex={1}>
+												<Row gutter={[16, 0]}>
+													<Col span={8}>
+														<Form.Item label="City" name={[field.name, 'city']}>
+															<Input />
+														</Form.Item>
+													</Col>
+													<Col span={8}>
+														<Form.Item label="State" name={[field.name, 'state']}>
+															<Input />
+														</Form.Item>
+													</Col>
+													<Col span={8}>
+														<Form.Item label="Zip code" name={[field.name, 'zip']}>
+															<Input />
+														</Form.Item>
+													</Col>
+												</Row>
+											</Col>
+											<Col>
+												<Divider>
+													<Button onClick={() => remove(field.name)} icon={<DeleteOutlined />}></Button>
+												</Divider>
+											</Col>
+										</Row>
+									)
+								})}
+								<Row justify="center">
+									<Button type="link" onClick={() => add()}>
+										Add another location +
+									</Button>
+								</Row>
+							</div>
+						)}
+					</Form.List>
 				</Form>
 			</Modal>
 		</>
