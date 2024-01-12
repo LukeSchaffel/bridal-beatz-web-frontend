@@ -14,10 +14,7 @@ type TUpdateProfileFormProps = {
 const UpdateProfileForm = ({ modal, setModal }: TUpdateProfileFormProps) => {
 	const [form] = Form.useForm()
 	const { account, status } = useTypedSelector((state) => state.auth)
-	const locations = Form.useWatch('locations', form)
 	const dispatch = useAppDispatch()
-	const [additionalLocations, setAdditionalLocations] = useState<number>(0)
-	console.log(locations)
 
 	const handleClose = () => {
 		setModal(null)

@@ -8,6 +8,7 @@ import { Widget } from '../../components'
 import UpdateProfileForm from './UpdateProfileForm'
 import { useState } from 'react'
 import { updateAccount } from '../../../features/auth/auth.slice'
+import AboutMeForm from './AboutMeForm/AboutMeForm'
 
 const { Text } = Typography
 
@@ -108,8 +109,7 @@ const Profile = () => {
 									Update profile
 								</Button>
 							</Row>
-							<Typography.Title level={3}>About me:</Typography.Title>
-							<Input.TextArea placeholder={account.about_me || 'Tell us a little about yourself'}></Input.TextArea>
+							<AboutMeForm account={account}/>
 						</Col>
 					</Row>
 					<br />
