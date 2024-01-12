@@ -18,15 +18,9 @@ const DashboardLayout = () => {
 			<Header style={styles}>
 				<Navbar />
 			</Header>
-			<Layout>
-				{/* <Sider style={styles}>
-					<Sidebar />
-				</Sider> */}
-				<Content>
-					<DashboardProvider />
-				</Content>
-			</Layout>
-			{/* <Footer>footer</Footer> */}
+			<Content>
+				<DashboardProvider />
+			</Content>
 		</Layout>
 	)
 }

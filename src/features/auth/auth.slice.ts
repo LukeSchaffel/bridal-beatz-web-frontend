@@ -5,8 +5,8 @@ import { message } from 'antd'
 import { api } from '../../utils/api'
 
 export interface AuthState {
-	authUser: any //TODO change this
-	account: any //TODO change this
+	authUser: AuthUser
+	account: Account
 	status: 'idle' | 'pending' | 'failed' | 'fulfilled'
 }
 
