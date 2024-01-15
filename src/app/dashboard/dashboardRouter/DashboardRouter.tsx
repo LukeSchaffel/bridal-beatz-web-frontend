@@ -7,6 +7,7 @@ const DashboardRouter = () => {
 	return (
 		<Routes>
 			{/* PUBLIC */}
+			<Route index Component={HomePage} />
 			<Route path={'/home'} Component={HomePage} />
 			<Route path={'/profile'} Component={Profile} />
 		</Routes>
