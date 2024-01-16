@@ -83,7 +83,7 @@ const Profile = () => {
 							<Card
 								hoverable
 								style={{ width: 240 }}
-								cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+								cover={<img alt="example" src="https://picsum.photos/200/300" />}
 							>
 								<Card.Meta
 									title={`${account.first_name} ${account.last_name}`}

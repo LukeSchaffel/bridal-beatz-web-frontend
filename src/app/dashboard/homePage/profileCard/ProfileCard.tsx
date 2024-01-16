@@ -1,13 +1,15 @@
 import { Card, Row, Col, Typography, Avatar, Tooltip } from 'antd'
 import { SettingOutlined, EditOutlined, EyeOutlined, GlobalOutlined, CustomerServiceOutlined } from '@ant-design/icons'
 import { capitalize } from 'lodash'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface IProfileCardProps {
 	account: Account
 }
 
 const ProfileCard = ({ account }: IProfileCardProps) => {
-	const actions = [<EyeOutlined key="view" />]
+	const navigate = useNavigate()
+	const actions = []
 
 	const locationsTitle = account.locations
 		?.map((l) => {
@@ -18,13 +20,13 @@ const ProfileCard = ({ account }: IProfileCardProps) => {
 	const genresTitle = account.genre?.map(capitalize).join(', ')
 
 	const genresTooltip = (
-		<Tooltip title={genresTitle} trigger={['click']}>
+		<Tooltip title={genresTitle} trigger={['hover']}>
 			<CustomerServiceOutlined />
 		</Tooltip>
 	)
 
 	const locationsTooltip = (
-		<Tooltip title={locationsTitle} trigger={['click']}>
+		<Tooltip title={locationsTitle} trigger={['hover']}>
 			<GlobalOutlined />
 		</Tooltip>
 	)
@@ -32,12 +34,17 @@ const ProfileCard = ({ account }: IProfileCardProps) => {
 	locationsTitle && actions.push(locationsTooltip)
 	genresTitle && actions.push(genresTooltip)
 
+	const handleNavigate = (account: Account) => {
+		navigate(`/dashboard/account/${account.account_id}`, { state: { account } })
+	}
+
 	return (
 		<Card
 			hoverable
 			style={{ width: 300 }}
-			cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+			cover={<img alt="example" src="https://picsum.photos/200/200" />}
 			actions={actions}
+			onClick={() => handleNavigate(account)}
 		>
 			<Card.Meta
 				avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}

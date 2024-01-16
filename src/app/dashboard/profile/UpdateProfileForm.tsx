@@ -5,6 +5,7 @@ import { DeleteOutlined } from '@ant-design/icons'
 
 import { updateAccount } from '../../../features/auth/auth.slice'
 import { useState } from 'react'
+import { states } from '../../../utils/misc'
 
 type TUpdateProfileFormProps = {
 	modal: any
@@ -78,9 +79,14 @@ const UpdateProfileForm = ({ modal, setModal }: TUpdateProfileFormProps) => {
 	const type = account.type === 'admin' ? 'admin' : account.type === 'vendor' ? 'vendor' : 'client'
 
 	const handleSubmit = async () => {
-		const values = form.getFieldsValue()
-		await dispatch(updateAccount(values))
-		handleClose()
+		try {
+			await form.validateFields()
+			const values = form.getFieldsValue()
+			await dispatch(updateAccount(values))
+			handleClose()
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	const vendorTypeSelect = (
@@ -127,7 +133,12 @@ const UpdateProfileForm = ({ modal, setModal }: TUpdateProfileFormProps) => {
 	return (
 		<>
 			<Modal open={!!modal} onCancel={handleClose} onOk={handleSubmit} confirmLoading={status === 'pending'}>
-				<Form form={form} layout="vertical" initialValues={account}>
+				<Form
+					form={form}
+					layout="vertical"
+					initialValues={account}
+					validateMessages={{ required: '${label} is required' }}
+				>
 					<Form.Item name="first_name" label="First name">
 						<Input />
 					</Form.Item>
@@ -152,17 +163,17 @@ const UpdateProfileForm = ({ modal, setModal }: TUpdateProfileFormProps) => {
 											<Col flex={1}>
 												<Row gutter={[16, 0]}>
 													<Col span={8}>
-														<Form.Item label="City" name={[field.name, 'city']}>
+														<Form.Item label="City" name={[field.name, 'city']} rules={[{ required: true }]}>
 															<Input />
 														</Form.Item>
 													</Col>
 													<Col span={8}>
-														<Form.Item label="State" name={[field.name, 'state']}>
-															<Input />
+														<Form.Item label="State" name={[field.name, 'state']} rules={[{ required: true }]}>
+															<Select showSearch options={states} />
 														</Form.Item>
 													</Col>
 													<Col span={8}>
-														<Form.Item label="Zip code" name={[field.name, 'zip']}>
+														<Form.Item label="Zip code" name={[field.name, 'zip']} rules={[{ required: true }]}>
 															<Input />
 														</Form.Item>
 													</Col>
