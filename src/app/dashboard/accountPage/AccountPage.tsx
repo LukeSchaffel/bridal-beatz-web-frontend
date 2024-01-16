@@ -11,6 +11,7 @@ import {
 import { capitalize } from 'lodash'
 
 import styles from './_account_page.module.scss'
+import { Widget } from '../../components'
 
 const { Title, Paragraph } = Typography
 const { useToken } = theme
@@ -77,9 +78,9 @@ const AccountPage = ({}) => {
 					<Title level={3} style={{ marginTop: 0 }}>
 						About me
 					</Title>
-					<div className={styles.aboutMeContainer} style={{ backgroundColor: token.colorSuccessBg }}>
+					<Widget className={styles.aboutMeContainer}>
 						<Paragraph>{about_me || 'Crickets...'}</Paragraph>
-					</div>
+					</Widget>
 				</Col>
 			</Row>
 		</div>

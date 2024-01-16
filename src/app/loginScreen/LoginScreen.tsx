@@ -33,7 +33,7 @@ const LoginScreen = () => {
 	}, [authUser])
 
 	return (
-		<div className={styles.loginScreen} style={{ backgroundColor: token.colorSuccessBg }}>
+		<div className={styles.loginScreen}>
 			<div className={styles.main}>
 				<Typography.Title>Bridal Beatz</Typography.Title>
 				<Widget padding={'0'}>

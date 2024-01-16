@@ -14,7 +14,7 @@ const DashboardLayout = () => {
 	const styles = { borderBottom: `1px solid ${token.colorBorder}`, backgroundColor: 'transparent' }
 
 	return (
-		<Layout style={{ minHeight: '100%' }}>
+		<Layout style={{ minHeight: '100%', backgroundColor: 'white' }}>
 			<Header style={styles}>
 				<Navbar />
 			</Header>

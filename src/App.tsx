@@ -18,14 +18,12 @@ function App() {
 	}, [])
 
 	const token: ThemeConfig['token'] = {
-		colorPrimary: '#025464',
-		colorInfo: '#025464',
-		colorSuccess: '#e8aa42',
 		borderRadius: 9,
 		colorWarning: '#e98417',
 		colorError: '#e75557',
-		colorPrimaryBg: '#93a3a380',
-		colorTextSecondary: '#025464',
+		colorSuccess: '#efd74a',
+		colorPrimary: '#6972bc',
+		colorInfo: '#6972bc',
 	}
 
 	return (
