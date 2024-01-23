@@ -24,7 +24,17 @@ declare global {
 		bio?: string | null
 		about_me?: string | null
 
+		reviews: Review[]
 		locations: Location[]
+	}
+
+	interface Review {
+		rating: number
+		content: string
+		account_id: number
+		review_id: number
+		creator_id: number
+		creator?: Account
 	}
 
 	interface Location {

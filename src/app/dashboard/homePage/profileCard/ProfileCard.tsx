@@ -35,7 +35,7 @@ const ProfileCard = ({ account }: IProfileCardProps) => {
 	genresTitle && actions.push(genresTooltip)
 
 	const handleNavigate = (account: Account) => {
-		navigate(`/dashboard/account/${account.account_id}`, { state: { account } })
+		navigate(`/dashboard/account/${account.account_id}`, { state: { account_id: account.account_id } })
 	}
 
 	return (
