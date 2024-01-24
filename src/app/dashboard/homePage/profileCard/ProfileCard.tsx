@@ -1,4 +1,4 @@
-import { Card, Row, Col, Typography, Avatar, Tooltip } from 'antd'
+import { Card, Row, Col, Typography, Avatar, Tooltip, Rate } from 'antd'
 import { SettingOutlined, EditOutlined, EyeOutlined, GlobalOutlined, CustomerServiceOutlined } from '@ant-design/icons'
 import { capitalize } from 'lodash'
 import { Link, useNavigate } from 'react-router-dom'
@@ -54,6 +54,10 @@ const ProfileCard = ({ account }: IProfileCardProps) => {
 						<Typography.Title level={5} style={{ margin: 0 }}>
 							{capitalize(account.vendor_type) || capitalize(account.client_type)}
 						</Typography.Title>
+						<Row align={'middle'}>
+							<Rate allowHalf value={account?.rating?.average_rating || 0} />({account.rating.total})
+						</Row>
+						<br />
 						{account.bio}
 					</div>
 				}

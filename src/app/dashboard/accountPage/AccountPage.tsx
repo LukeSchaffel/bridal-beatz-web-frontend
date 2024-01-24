@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Avatar, Col, Row, Space, Typography, theme } from 'antd'
+import { Avatar, Col, Row, Skeleton, Space, Spin, Typography, theme } from 'antd'
 import {
 	InfoCircleOutlined,
 	EnvironmentOutlined,
@@ -9,35 +9,47 @@ import {
 	UserOutlined,
 } from '@ant-design/icons'
 import { capitalize } from 'lodash'
-import { useTypedSelector } from '../../hooks'
+import { useAppDispatch, useTypedSelector } from '../../hooks'
 
 import styles from './_account_page.module.scss'
 import { Widget } from '../../components'
 import ReviewForm from './reviewForm/ReviewForm'
 import ReviewList from './reviewList/ReviewList'
+import { getAccount } from '../../../features/accounts/accounts.slice'
 
 const { Title, Paragraph } = Typography
 const { useToken } = theme
 
 const AccountPage = ({}) => {
+	const dispatch = useAppDispatch()
 	const location = useLocation()
 	const navigate = useNavigate()
 	const {
 		state: { account_id },
 	} = location
 	const { token } = useToken()
-	const { accounts } = useTypedSelector((state) => state.accounts)
-	const [account, setAccount] = useState(accounts?.find((acc) => acc.account_id === account_id))
+	const { accounts, selectedAccount, status } = useTypedSelector((state) => state.accounts)
 
 	useEffect(() => {
 		if (!account_id) {
 			navigate('/dashboard')
 		}
-		setAccount(accounts?.find((acc) => acc.account_id === account_id))
+		dispatch(getAccount(account_id))
 	}, [account_id, accounts])
 
+	if (status === 'pending') {
+		return (
+			<div style={{ padding: '1rem' }}>
+				<Skeleton.Avatar size={'large'} active />
+				<Row>
+					<Skeleton active />
+				</Row>
+			</div>
+		)
+	}
+
 	const { email, first_name, last_name, genre, locations, bio, type, vendor_type, client_type, phone, about_me } =
-		account ?? ({} as Account)
+		selectedAccount ?? ({} as Account)
 
 	return (
 		<div className={styles.page}>
@@ -78,9 +90,9 @@ const AccountPage = ({}) => {
 				</Col>
 				<Col xs={24} sm={8}>
 					<div>
-						<ReviewList account={account} />
+						<ReviewList account={selectedAccount} />
 					</div>
-					<ReviewForm account={account} />
+					<ReviewForm account={selectedAccount} />
 				</Col>
 			</Row>
 		</div>

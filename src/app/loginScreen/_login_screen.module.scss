@@ -2,7 +2,12 @@
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	height: 100%;
+	justify-content: center;
+	min-height: 100%;
+	background-image: url('../../static/background.png');
+	background-size: cover;
+	background-position: center;
+	padding: 1rem;
 }
 
 .formContainer {
@@ -10,6 +15,11 @@
 	flex-direction: row;
 	overflow: hidden;
 	flex-wrap: wrap-reverse;
+	justify-content: center;
+}
+
+.imgContainer {
+	max-width: 300px;
 }
 
 .loginForm {

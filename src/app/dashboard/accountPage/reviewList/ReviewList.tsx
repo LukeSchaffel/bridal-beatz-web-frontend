@@ -41,7 +41,7 @@ const ReviewList = ({ account }: { account: Account }) => {
 				Reviews
 			</Typography.Title>
 			<Typography.Title level={5}>Overall rating</Typography.Title>
-			<Rate defaultValue={averageReview} />
+			<Rate allowHalf value={averageReview} disabled />
 			<Typography.Title level={4}> {totalReviews} reviews </Typography.Title>
 			<div style={{ marginTop: 10, marginBottom: 10 }}>
 				{Object.entries(ratings)

@@ -10,6 +10,7 @@ import { theme } from 'antd'
 import { Widget } from '../components'
 import { login } from '../../features/auth/auth.slice'
 import flowers from '../../static/flowers.jpg'
+import logo from '../../static/logo.jpeg'
 import styles from './_login_screen.module.scss'
 
 const { useToken } = theme
@@ -35,15 +36,16 @@ const LoginScreen = () => {
 	return (
 		<div className={styles.loginScreen}>
 			<div className={styles.main}>
-				<Typography.Title>Bridal Beatz</Typography.Title>
 				<Widget padding={'0'}>
 					<div className={styles.formContainer}>
 						<div className={styles.imgContainer}>
-							<img src={flowers} alt="flowers" width={300} height={'100%'} />
+							<img src={logo} alt="logo" width={'100%'} height={'100%'} style={{ objectFit: 'cover' }} />
 						</div>
 						<Col className={styles.loginForm}>
-							<Row>
-								<Typography.Title level={2}>Login</Typography.Title>
+							<Row justify={'center'}>
+								<Typography.Title level={2} style={{ marginTop: 0 }}>
+									Login
+								</Typography.Title>
 							</Row>
 							<Form
 								layout="vertical"
@@ -70,7 +72,14 @@ const LoginScreen = () => {
 										</Button>
 									</Row>
 									<Row align="middle" justify="center">
-										<Button type="primary" color="danger" size="large" style={{ width: '100%' }} htmlType="submit" loading={status === 'pending'}>
+										<Button
+											type="primary"
+											color="danger"
+											size="large"
+											style={{ width: '100%' }}
+											htmlType="submit"
+											loading={status === 'pending'}
+										>
 											Login
 										</Button>
 									</Row>
@@ -89,11 +98,7 @@ const LoginScreen = () => {
 			<FloatButton
 				type="primary"
 				icon={<QuestionCircleOutlined />}
-				tooltip={
-					<Widget>
-						<>Bridal Beatz is an online marketplace for wedding events, with a focus on live entertainment</>
-					</Widget>
-				}
+				tooltip={<>Bridal Beatz is an online marketplace for wedding events, with a focus on live entertainment</>}
 			/>
 		</div>
 	)

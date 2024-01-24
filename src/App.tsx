@@ -30,6 +30,11 @@ function App() {
 		<ConfigProvider
 			theme={{
 				token,
+				components: {
+					Typography: {
+						titleMarginTop: '0px',
+					},
+				},
 			}}
 			getPopupContainer={(triggerNode) => triggerNode?.parentElement || document.body}
 		>

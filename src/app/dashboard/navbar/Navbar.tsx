@@ -5,6 +5,8 @@ import { useTypedSelector } from '../../hooks'
 import { useAppDispatch } from '../../hooks'
 import { useNavigate } from 'react-router-dom'
 
+import logo from '../../../static/logo.jpeg'
+
 import { logout } from '../../../features/auth/auth.slice'
 import styles from './_navbar.module.scss'
 const { Item } = Menu
@@ -52,6 +54,7 @@ const Navbar = () => {
 	return (
 		<Row align="middle">
 			{contextHolder}
+			<img src={logo} style={{ height: 50, width: 50, borderRadius: '50%' }} />
 			<Menu
 				style={{ fontSize: 20, backgroundColor: 'transparent', display: 'flex', flex: 1 }}
 				onClick={onClick}

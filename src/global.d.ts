@@ -23,6 +23,10 @@ declare global {
 		genre?: string[]
 		bio?: string | null
 		about_me?: string | null
+		rating?: {
+			average_rating: number
+			total: number
+		}
 
 		reviews: Review[]
 		locations: Location[]
