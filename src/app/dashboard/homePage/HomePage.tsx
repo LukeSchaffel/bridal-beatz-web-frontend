@@ -15,6 +15,8 @@ type TQueryState = {
 	client_type: Account['client_type']
 	vendor_type: Account['vendor_type']
 	state: string
+	take: string
+	sort_by: 'review_count' | 'average_rating'
 }
 
 const segmentedStyles = {
@@ -31,6 +33,8 @@ const HomePage = () => {
 		client_type: undefined,
 		vendor_type: undefined,
 		state: '',
+		take: '10',
+		sort_by: 'average_rating',
 	}
 	const [query, setQuery] = useState({ ...initialQueryState })
 	const timeoutRef = useRef(null)
@@ -139,6 +143,40 @@ const HomePage = () => {
 					/>
 					{account.type === 'vendor' && vendorSegmented} {account.type === 'client' && clientSegmented}
 					<Select placeholder="State" allowClear onChange={onSelectChange} style={{ width: 100 }} options={states} />
+					<Select
+						value={query.take}
+						style={{ width: '100px' }}
+						onChange={(value) => {
+							setQuery({
+								...query,
+								take: value,
+							})
+						}}
+						options={[
+							{ label: '10', value: '10' },
+							{ label: '20', value: '20' },
+							{ label: '50', value: '50' },
+							{ label: '100', value: '100' },
+							{ label: 'All', value: '0' },
+						]}
+					/>
+					<Select
+						style={{ width: '200px' }}
+						value={query.sort_by}
+						onChange={(value) => {
+							setQuery({
+								...query,
+								sort_by: value,
+							})
+						}}
+						options={[
+							{
+								label: 'Average rating',
+								value: 'average_rating',
+							},
+							{ label: 'Number of reviews', value: 'review_count' },
+						]}
+					/>
 				</Space.Compact>
 				<br />
 				<div>
