@@ -1,8 +1,8 @@
-import { Typography, Skeleton, Segmented, Select, Spin } from 'antd'
+import { Typography, Skeleton, Segmented, Select, Spin, Row, Col, Space, Input } from 'antd'
 import { useTypedSelector, useAppDispatch } from '../../hooks'
 
 import { getAccounts } from '../../../features/accounts/accounts.slice'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ProfileCard from './profileCard/ProfileCard'
 import styles from './_home_page.module.scss'
 import { states } from '../../../utils/misc'
@@ -17,6 +17,10 @@ type TQueryState = {
 	state: string
 }
 
+const segmentedStyles = {
+	borderRadius: 0,
+}
+
 const HomePage = () => {
 	const dispatch = useAppDispatch()
 	const { account } = useTypedSelector((state) => state.auth)
@@ -29,6 +33,7 @@ const HomePage = () => {
 		state: '',
 	}
 	const [query, setQuery] = useState({ ...initialQueryState })
+	const timeoutRef = useRef(null)
 
 	const handleGetAccounts = () => {
 		let queryString = ''
@@ -46,7 +51,7 @@ const HomePage = () => {
 		handleGetAccounts()
 	}, [query])
 
-	const onSegmentedChange = (value) => {
+	const onSegmentedChange = (value: Account['client_type'] | Account['vendor_type']) => {
 		setQuery({
 			...query,
 			[account.type === 'client' ? 'vendor_type' : 'client_type']: value,
@@ -55,6 +60,7 @@ const HomePage = () => {
 
 	const vendorSegmented = (
 		<Segmented
+			style={segmentedStyles}
 			options={[
 				{
 					label: 'Any client',
@@ -72,6 +78,7 @@ const HomePage = () => {
 	)
 	const clientSegmented = (
 		<Segmented
+			style={segmentedStyles}
 			options={[
 				{
 					label: 'Any vendor',
@@ -88,10 +95,33 @@ const HomePage = () => {
 		/>
 	)
 
-	const onSelectChange = (value) => {
+	const onSelectChange = (value: string) => {
 		setQuery({
 			...query,
 			state: value,
+		})
+	}
+
+	const onSearchChange = (e) => {
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current)
+		}
+		timeoutRef.current = setTimeout(() => {
+			setQuery({
+				...query,
+				search: e.target.value,
+			})
+			clearTimeout(timeoutRef.current)
+		}, 500)
+	}
+
+	const onSearchSearch = (value: string) => {
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current)
+		}
+		setQuery({
+			...query,
+			search: value,
 		})
 	}
 
@@ -99,10 +129,17 @@ const HomePage = () => {
 		<>
 			<div className={styles.main}>
 				<Title>Welcome {account.first_name}</Title>
-				<div className={styles.header}>
-					Im looking for a {account.type === 'vendor' && vendorSegmented} {account.type === 'client' && clientSegmented}{' '}
-					in: <Select allowClear onChange={onSelectChange} style={{ width: 100 }} options={states} />
-				</div>
+				<Space.Compact direction="horizontal" block>
+					<Input.Search
+						placeholder="Name, Bio"
+						allowClear
+						style={{ maxWidth: '200px' }}
+						onChange={onSearchChange}
+						onSearch={onSearchSearch}
+					/>
+					{account.type === 'vendor' && vendorSegmented} {account.type === 'client' && clientSegmented}
+					<Select placeholder="State" allowClear onChange={onSelectChange} style={{ width: 100 }} options={states} />
+				</Space.Compact>
 				<br />
 				<div>
 					{status === 'pending' ? (

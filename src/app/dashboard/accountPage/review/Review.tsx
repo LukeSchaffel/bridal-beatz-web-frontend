@@ -13,7 +13,7 @@ const Review = ({ review }: { review: Review }) => {
 				description={
 					<div>
 						<div>
-							<Rate defaultValue={review.rating} allowClear />
+							<Rate disabled defaultValue={review.rating} allowClear />
 						</div>
 						<>{review.content}</>
 					</div>

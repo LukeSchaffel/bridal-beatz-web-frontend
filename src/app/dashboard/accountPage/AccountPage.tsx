@@ -49,14 +49,14 @@ const AccountPage = ({}) => {
 	}
 
 	const { email, first_name, last_name, genre, locations, bio, type, vendor_type, client_type, phone, about_me } =
-		selectedAccount ?? ({} as Account)
+		selectedAccount ?? {}
 
 	return (
 		<div className={styles.page}>
 			<Title type="success">
 				{first_name} {last_name}
 			</Title>
-			<Row wrap gutter={[16, 16]}>
+			<Row wrap gutter={[32, 16]}>
 				<Col xs={24} sm={8}>
 					<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ width: 200, height: 200 }} />
 					<Title level={4}>

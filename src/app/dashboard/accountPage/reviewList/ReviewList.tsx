@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Col, List, Progress, Row, Spin, Typography, Rate } from 'antd'
+import { Col, List, Progress, Row, Spin, Typography, Rate, Skeleton } from 'antd'
 
 import { useAppDispatch, useTypedSelector } from '../../../hooks'
 import { getReviews } from '../../../../features/reviews/reviews.slice'
@@ -16,7 +16,7 @@ const ReviewList = ({ account }: { account: Account }) => {
 	}, [account])
 
 	if (!account) {
-		return <Spin />
+		return <Skeleton active />
 	}
 
 	const ratings: { [key: number]: number } = reviews.reduce(
@@ -46,10 +46,10 @@ const ReviewList = ({ account }: { account: Account }) => {
 			<div style={{ marginTop: 10, marginBottom: 10 }}>
 				{Object.entries(ratings)
 					.reverse()
-					.map(([rating, amount]) => {
+					.map(([rating, amount], i) => {
 						const percent = (amount / totalReviews) * 100
 						return (
-							<Row wrap={false} gutter={[16, 16]} align={'middle'}>
+							<Row wrap={false} gutter={[16, 16]} align={'middle'} key={i}>
 								<Col>
 									{rating} Stars ({amount})
 								</Col>
@@ -64,7 +64,8 @@ const ReviewList = ({ account }: { account: Account }) => {
 				loading={status === 'pending'}
 				pagination={{ position: 'bottom', align: 'center' }}
 				dataSource={reviews}
-				renderItem={(item: Review, index) => <Review review={item} key={item.review_id} />}
+				renderItem={(item: Review, index) => <Review review={item} />}
+				rowKey={(item) => item.review_id.toString()}
 			/>
 		</>
 	)
