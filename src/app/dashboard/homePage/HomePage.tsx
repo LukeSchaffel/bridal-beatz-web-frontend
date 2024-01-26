@@ -16,7 +16,7 @@ type TQueryState = {
 	vendor_type: Account['vendor_type']
 	state: string
 	take: string
-	sort_by: 'review_count' | 'average_rating'
+	sort_by: 'review_count' | 'average_rating' | 'score'
 }
 
 const segmentedStyles = {
@@ -34,7 +34,7 @@ const HomePage = () => {
 		vendor_type: undefined,
 		state: '',
 		take: '10',
-		sort_by: 'average_rating',
+		sort_by: 'score',
 	}
 	const [query, setQuery] = useState({ ...initialQueryState })
 	const timeoutRef = useRef(null)
@@ -174,7 +174,8 @@ const HomePage = () => {
 								label: 'Average rating',
 								value: 'average_rating',
 							},
-							{ label: 'Number of reviews', value: 'review_count' },
+							{ label: 'Number of reviews', value: 'total' },
+							{ label: 'Reccomended', value: 'score' },
 						]}
 					/>
 				</Space.Compact>
