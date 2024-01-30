@@ -30,6 +30,7 @@ declare global {
 
 		reviews: Review[]
 		locations: Location[]
+		images: Image[]
 	}
 
 	interface Review {
@@ -46,6 +47,16 @@ declare global {
 		city: string
 		state: string
 		zip: string
+	}
+
+	interface Image {
+		image_id: number
+		account_id: number
+		url: string
+		meta: JSON
+		image_kit_id: string
+		avatar: boolean
+		created_at: string
 	}
 }
 

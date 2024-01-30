@@ -4,7 +4,7 @@ import { useAppDispatch, useTypedSelector } from '../../hooks'
 import { theme } from 'antd'
 
 import { capitalize } from 'lodash'
-import { Widget } from '../../components'
+import { Widget, AvatarUpload } from '../../components'
 import UpdateProfileForm from './UpdateProfileForm'
 import { useState } from 'react'
 import { updateAccount } from '../../../features/auth/auth.slice'
@@ -80,11 +80,7 @@ const Profile = () => {
 				<>
 					<Row style={{ width: '100%' }} gutter={[16, 0]}>
 						<Col>
-							<Card
-								hoverable
-								style={{ width: 240 }}
-								cover={<img alt="example" src="https://picsum.photos/200/300" />}
-							>
+							<Card hoverable style={{ width: 240 }} cover={<AvatarUpload account={account} />}>
 								<Card.Meta
 									title={`${account.first_name} ${account.last_name}`}
 									description={
@@ -109,7 +105,7 @@ const Profile = () => {
 									Update profile
 								</Button>
 							</Row>
-							<AboutMeForm account={account}/>
+							<AboutMeForm account={account} />
 						</Col>
 					</Row>
 					<br />

@@ -42,7 +42,11 @@ const ProfileCard = ({ account }: IProfileCardProps) => {
 		<Card
 			hoverable
 			style={{ width: 300 }}
-			cover={<img alt="example" src="https://picsum.photos/200/200" />}
+			cover={
+				<div style={{ width: '100%', height: '200px' }}>
+					<img alt="cover" src={account.images[0]?.url} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+				</div>
+			}
 			actions={actions}
 			onClick={() => handleNavigate(account)}
 		>
