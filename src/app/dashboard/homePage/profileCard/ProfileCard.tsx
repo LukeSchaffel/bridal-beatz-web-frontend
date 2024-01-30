@@ -10,6 +10,7 @@ interface IProfileCardProps {
 const ProfileCard = ({ account }: IProfileCardProps) => {
 	const navigate = useNavigate()
 	const actions = []
+	const coverPhoto = account.images[0]?.url
 
 	const locationsTitle = account.locations
 		?.map((l) => {
@@ -44,14 +45,20 @@ const ProfileCard = ({ account }: IProfileCardProps) => {
 			style={{ width: 300 }}
 			cover={
 				<div style={{ width: '100%', height: '200px' }}>
-					<img alt="cover" src={account.images[0]?.url} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+					<img
+						alt="cover"
+						src={
+							account.images[0]?.url ||
+							'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
+						}
+						style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+					/>
 				</div>
 			}
 			actions={actions}
 			onClick={() => handleNavigate(account)}
 		>
 			<Card.Meta
-				avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
 				title={`${account.first_name} ${account.last_name}`}
 				description={
 					<div>

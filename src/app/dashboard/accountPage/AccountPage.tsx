@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Avatar, Col, Row, Skeleton, Space, Spin, Typography, theme } from 'antd'
+import { Avatar, Button, Col, Row, Skeleton, Space, Spin, Typography, theme } from 'antd'
 import {
 	InfoCircleOutlined,
 	EnvironmentOutlined,
 	CustomerServiceOutlined,
 	MailOutlined,
 	UserOutlined,
+	CaretLeftOutlined,
 } from '@ant-design/icons'
 import { capitalize } from 'lodash'
 import { useAppDispatch, useTypedSelector } from '../../hooks'
@@ -48,17 +49,32 @@ const AccountPage = ({}) => {
 		)
 	}
 
+	const handleGoBack = () => {
+		navigate('/dashboard')
+	}
+
 	const { email, first_name, last_name, genre, locations, bio, type, vendor_type, client_type, phone, about_me } =
 		selectedAccount ?? {}
 
 	return (
 		<div className={styles.page}>
-			<Title type="success">
-				{first_name} {last_name}
-			</Title>
+			<Button type="link" onClick={handleGoBack}>
+				<Row align="middle">
+					<CaretLeftOutlined /> {first_name} {last_name}
+				</Row>
+			</Button>
 			<Row wrap gutter={[32, 16]}>
 				<Col xs={24} sm={8}>
-					<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" style={{ width: 200, height: 200 }} />
+					<div>
+						<img
+							alt="cover"
+							src={
+								selectedAccount?.images[0]?.url ||
+								'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
+							}
+							style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+						/>
+					</div>
 					<Title level={4}>
 						<UserOutlined /> {capitalize(client_type || vendor_type)}
 					</Title>
