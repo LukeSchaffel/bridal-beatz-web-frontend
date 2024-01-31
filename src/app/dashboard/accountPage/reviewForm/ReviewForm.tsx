@@ -14,29 +14,28 @@ const ReviewForm = ({ account }: { account: Account }) => {
 			values.account_id = account.account_id
 			await dispatch(createReview(values))
 			message.success('Successfully created review')
+			form.resetFields()
 		} catch (error) {
 			console.log(error)
-		} finally {
-			form.resetFields()
 		}
 	}
 
 	return (
 		<>
 			<Typography.Title level={4}>Worked with me? Leave a review!</Typography.Title>
-			<Form form={form} layout="vertical" validateMessages={{ required: '${label} is required' }}>
+			<Form form={form} layout="vertical">
 				<Form.Item name="rating" rules={[{ required: true }]}>
 					<Rate allowHalf />
 				</Form.Item>
 				<Form.Item name="content" rules={[{ required: true }]}>
 					<Input.TextArea />
 				</Form.Item>
-				<Row justify="end">
-					<Button type="primary" onClick={handleSubmit}>
-						Submit
-					</Button>
-				</Row>
 			</Form>
+			<Row justify="end">
+				<Button type="primary" onClick={handleSubmit}>
+					Submit
+				</Button>
+			</Row>
 		</>
 	)
 }

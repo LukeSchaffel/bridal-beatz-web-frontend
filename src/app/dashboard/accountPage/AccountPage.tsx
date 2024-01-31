@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Anchor, Button, Col, Divider, Row, Skeleton, Typography, theme } from 'antd'
+import { Anchor, Button, Col, Divider, Row, Skeleton, Typography, theme, Image } from 'antd'
 import {
 	EnvironmentOutlined,
 	CustomerServiceOutlined,
@@ -87,28 +87,31 @@ const AccountPage = ({}) => {
 				</Row>
 			</Button>
 			<div id="photos" className={styles.main}>
-				<div className={styles.imgWrapper}>
-					<img
-						className={styles.img}
-						alt="cover"
-						src={
-							selectedAccount?.images[0]?.url ||
-							'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
-						}
-					/>
-				</div>
-				<div className={styles.imgWrapper}>
-					<img className={styles.img} alt="cover" src={'https://picsum.photos/200/300'} />
-				</div>
-				<div className={styles.imgWrapper}>
-					<img className={styles.img} alt="cover" src={'https://picsum.photos/400/600'} />
-				</div>
-				<div className={styles.imgWrapper}>
-					<img className={styles.img} alt="cover" src={'https://picsum.photos/900/200'} />
-				</div>
+				<Image.PreviewGroup>
+					<div className={styles.imgWrapper}>
+						<Image
+							height={'100%'}
+							className={styles.img}
+							alt="cover"
+							src={
+								selectedAccount?.images[0]?.url ||
+								'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
+							}
+						/>
+					</div>
+					<div className={styles.imgWrapper}>
+						<Image height={'100%'} className={styles.img} alt="cover" src={'https://picsum.photos/200/300'} />
+					</div>
+					<div className={styles.imgWrapper}>
+						<Image height={'100%'} className={styles.img} alt="cover" src={'https://picsum.photos/400/600'} />
+					</div>
+					<div className={styles.imgWrapper}>
+						<Image height={'100%'} className={styles.img} alt="cover" src={'https://picsum.photos/500/200'} />
+					</div>
+				</Image.PreviewGroup>
 			</div>
 			<div>
-				<Anchor direction="horizontal" items={anchorItems} />
+				<Anchor direction="horizontal" items={anchorItems} targetOffset={30} />
 				<div>
 					<Title level={2}>
 						{first_name} {last_name}
