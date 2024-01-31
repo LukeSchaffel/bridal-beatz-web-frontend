@@ -86,7 +86,7 @@ const AccountPage = ({}) => {
 					<CaretLeftOutlined /> {first_name} {last_name}
 				</Row>
 			</Button>
-			<div id="photos" className={styles.main}>
+			<div id="photos" className={styles.photos}>
 				<Image.PreviewGroup
 					items={[
 						...selectedAccount.images.map((i) => i.url),
@@ -117,7 +117,7 @@ const AccountPage = ({}) => {
 					</div>
 				</Image.PreviewGroup>
 			</div>
-			<div>
+			<div className={styles.main}>
 				<Anchor style={{ backgroundColor: 'white' }} direction="horizontal" items={anchorItems} targetOffset={42} />
 				<div>
 					<Title level={2}>
