@@ -4,10 +4,30 @@
 	padding: 50px;
 }
 
+.main {
+	width: '100%';
+	height: 500px;
+	display: flex;
+	flex-direction: row;
+	border-radius: 9px;
+	overflow: hidden;
+}
+
 .aboutMeContainer {
 	max-height: 500px;
 	overflow-y: auto;
 	padding: 1rem;
 	border-radius: 9px;
 	border-width: 1px;
+}
+
+.imgWrapper {
+	width: 25%;
+	height: 100%;
+}
+
+.img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
