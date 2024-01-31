@@ -24,7 +24,7 @@ const beforeUpload = (file) => {
 	return isJpgOrPng && isLt2M
 }
 
-const AvatarUpload = ({ account }: { account: Account }) => {
+const AvatarUpload = ({ account, type }: { account: Account; type: 'avatar' | 'bulk' }) => {
 	const dispatch = useAppDispatch()
 	const [loading, setLoading] = useState(false)
 	const [imageUrl, setImageUrl] = useState<string>(account?.images?.find((img) => img.avatar)?.url || '')
@@ -34,7 +34,7 @@ const AvatarUpload = ({ account }: { account: Account }) => {
 		try {
 			const form = new FormData()
 			form.append('image', fileObj)
-			const { data } = await api.post(`/images/uploadImage/${account.account_id}?type=avatar`, form, {
+			const { data } = await api.post(`/images/uploadImage/${account.account_id}?type=${type}`, form, {
 				headers: { 'Content-Type': 'multipart/form-data' },
 			})
 			setImageUrl(data.data)
