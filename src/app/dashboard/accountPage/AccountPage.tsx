@@ -33,7 +33,7 @@ const AccountPage = ({}) => {
 		dispatch(getAccount(account_id))
 	}, [account_id, accounts])
 
-	if (status === 'pending') {
+	if (status === 'pending' || !selectedAccount) {
 		return (
 			<div style={{ padding: '1rem' }}>
 				<Skeleton.Avatar size={'large'} active />
@@ -55,27 +55,27 @@ const AccountPage = ({}) => {
 		{
 			key: 'photos',
 			href: '#photos',
-			title: 'Photos',
+			title: <span className={styles.navItem}>Photos</span>,
 		},
 		{
 			key: 'about',
 			href: '#about',
-			title: 'About',
+			title: <span className={styles.navItem}>About</span>,
 		},
 		{
 			key: 'details',
 			href: '#details',
-			title: 'Details',
+			title: <span className={styles.navItem}>Details</span>,
 		},
 		{
 			key: 'reviews',
 			href: '#reviews',
-			title: 'Reviews',
+			title: <span className={styles.navItem}>Reviews</span>,
 		},
 		{
 			key: 'contact',
 			href: '#contact',
-			title: 'Contact info',
+			title: <span className={styles.navItem}>Contact</span>,
 		},
 	]
 
@@ -87,7 +87,14 @@ const AccountPage = ({}) => {
 				</Row>
 			</Button>
 			<div id="photos" className={styles.main}>
-				<Image.PreviewGroup>
+				<Image.PreviewGroup
+					items={[
+						...selectedAccount.images.map((i) => i.url),
+						'https://picsum.photos/200/300',
+						'https://picsum.photos/400/600',
+						'https://picsum.photos/500/200',
+					]}
+				>
 					<div className={styles.imgWrapper}>
 						<Image
 							height={'100%'}
@@ -111,7 +118,7 @@ const AccountPage = ({}) => {
 				</Image.PreviewGroup>
 			</div>
 			<div>
-				<Anchor direction="horizontal" items={anchorItems} targetOffset={30} />
+				<Anchor style={{ backgroundColor: 'white' }} direction="horizontal" items={anchorItems} targetOffset={42} />
 				<div>
 					<Title level={2}>
 						{first_name} {last_name}
@@ -158,12 +165,15 @@ const AccountPage = ({}) => {
 					<Text>
 						<Row gutter={[16, 16]}>
 							<Col>
-								<Text>
+								<Text underline>
 									<MailOutlined /> {email}
 								</Text>
 							</Col>
+							<Col hidden={!phone}>|</Col>
 							<Col hidden={!phone}>
-								| <PhoneOutlined /> {phone}
+								<Text underline>
+									<PhoneOutlined /> {phone}
+								</Text>
 							</Col>
 						</Row>
 					</Text>

@@ -56,8 +56,7 @@ const ReviewList = ({ account }: { account: Account }) => {
 						</Row>
 						<Row>
 							<Typography.Title style={{ margin: 0 }} level={5}>
-								{' '}
-								{totalReviews} Reviews{' '}
+								&nbsp; {totalReviews} {totalReviews === 1 ? 'Review' : 'Reviews'}
 							</Typography.Title>
 						</Row>
 					</div>

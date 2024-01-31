@@ -2,6 +2,7 @@
 	width: 100%;
 	height: 100%;
 	padding: 50px;
+	padding-top: 25px;
 }
 
 .main {
@@ -21,6 +22,10 @@
 	border-width: 1px;
 }
 
+.anchorWrapper {
+	background-color: white;
+}
+
 .photos {
 	width: 100%;
 	display: flex;
@@ -37,4 +42,8 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+.navItem {
+	font-size: 24px;
 }

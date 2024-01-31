@@ -42,15 +42,12 @@ const ProfileCard = ({ account }: IProfileCardProps) => {
 	return (
 		<Card
 			hoverable
-			style={{ width: 300 }}
+			style={{ maxWidth: 400, flex: 'auto' }}
 			cover={
 				<div style={{ width: '100%', height: '200px' }}>
 					<img
 						alt="cover"
-						src={
-							account.images[0]?.url ||
-							'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
-						}
+						src={account.images[0]?.url || `https://picsum.photos/400/600?random=${account.account_id}`}
 						style={{ width: '100%', height: '100%', objectFit: 'cover' }}
 					/>
 				</div>
@@ -62,14 +59,13 @@ const ProfileCard = ({ account }: IProfileCardProps) => {
 				title={`${account.first_name} ${account.last_name}`}
 				description={
 					<div>
-						<Typography.Title level={5} style={{ margin: 0 }}>
+						<Typography.Title level={4} style={{ marginTop: 0 }}>
 							{capitalize(account.vendor_type) || capitalize(account.client_type)}
 						</Typography.Title>
 						<Row align={'middle'}>
-							<Rate allowHalf value={account?.rating?.average_rating || 0} />({account.rating.total})
+							<Rate disabled allowHalf value={account?.rating?.average_rating || 0} />({account.rating.total})
 						</Row>
-						<br />
-						{account.bio}
+						<div style={{ paddingTop: 8 }}>{account.bio}</div>
 					</div>
 				}
 			/>

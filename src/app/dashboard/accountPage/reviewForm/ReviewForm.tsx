@@ -22,13 +22,13 @@ const ReviewForm = ({ account }: { account: Account }) => {
 
 	return (
 		<>
-			<Typography.Title level={4}>Worked with me? Leave a review!</Typography.Title>
+			<Typography.Title level={4}>Worked with {account.first_name}? Leave a review!</Typography.Title>
 			<Form form={form} layout="vertical">
 				<Form.Item name="rating" rules={[{ required: true }]}>
 					<Rate allowHalf />
 				</Form.Item>
 				<Form.Item name="content" rules={[{ required: true }]}>
-					<Input.TextArea />
+					<Input.TextArea rows={4} />
 				</Form.Item>
 			</Form>
 			<Row justify="end">
