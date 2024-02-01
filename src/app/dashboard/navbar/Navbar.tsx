@@ -1,26 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button, Menu, MenuProps, Modal, Row, theme, Typography, App } from 'antd'
 import { HomeOutlined, MailOutlined, SettingOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons'
 import { useTypedSelector } from '../../hooks'
 import { useAppDispatch } from '../../hooks'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import logo from '../../../static/logo.jpeg'
-
 import { logout } from '../../../features/auth/auth.slice'
-import styles from './_navbar.module.scss'
-const { Item } = Menu
-const { Title } = Typography
 
 const Navbar = () => {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
+	const location = useLocation()
 	const { token } = theme.useToken()
-	const { account } = useTypedSelector((state) => state.auth)
+	const { account, status } = useTypedSelector((state) => state.auth)
 	const [current, setCurrent] = useState('home')
 	const [{ confirm }, contextHolder] = Modal.useModal()
-
 	const { type } = account ?? {}
+	const onMyProfile = parseInt(location.pathname.split('/')[3]) === account?.account_id
 
 	const items: MenuProps['items'] = [
 		{
@@ -30,7 +27,6 @@ const Navbar = () => {
 		},
 		{
 			label: 'My Profile',
-			// key: 'profile',
 			key: `account/${account?.account_id}`,
 			icon: <UserOutlined style={{ fontSize: 20 }} />,
 		},
@@ -46,9 +42,16 @@ const Navbar = () => {
 	}
 
 	const onClick: MenuProps['onClick'] = (e) => {
-		setCurrent(e.key)
 		navigate(e.key)
 	}
+
+	useEffect(() => {
+		if (onMyProfile) {
+			setCurrent(`account/${account?.account_id}`)
+		} else {
+			setCurrent(location.pathname.split('/')[2])
+		}
+	}, [location.pathname])
 
 	return (
 		<Row align="middle">

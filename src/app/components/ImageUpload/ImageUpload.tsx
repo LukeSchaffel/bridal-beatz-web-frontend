@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, message, Upload } from 'antd'
+import { ButtonProps } from 'antd'
+import { CameraOutlined } from '@ant-design/icons'
 
 import { refreshUser } from '../../../features/auth/auth.slice'
 import { api } from '../../../utils/api'
@@ -24,7 +26,15 @@ const beforeUpload = (file) => {
 	return isJpgOrPng && isLt2M
 }
 
-const AvatarUpload = ({ account, type }: { account: Account; type: 'avatar' | 'bulk' }) => {
+const ImageUpload = ({
+	account,
+	type,
+	buttonProps,
+}: {
+	account: Account
+	type: 'avatar' | 'bulk'
+	buttonProps: ButtonProps
+}) => {
 	const dispatch = useAppDispatch()
 	const [loading, setLoading] = useState(false)
 	const [imageUrl, setImageUrl] = useState<string>(account?.images?.find((img) => img.avatar)?.url || '')
@@ -62,37 +72,15 @@ const AvatarUpload = ({ account, type }: { account: Account; type: 'avatar' | 'b
 		}
 	}
 
-	const uploadButton = (
-		<button style={{ border: 0, background: 'none' }} type="button">
-			{loading ? <LoadingOutlined /> : <PlusOutlined />}
-			<div style={{ marginTop: 8 }}>Upload</div>
-		</button>
-	)
-
 	return (
 		<>
-			{imageUrl ? (
-				<>
-					<img src={imageUrl} alt="avatar" style={{ width: '100%', objectFit: 'contain' }} />
-					<Button onClick={() => setImageUrl('')} type="link">
-						Change avatar
-					</Button>
-				</>
-			) : (
-				<Upload
-					listType="picture-card"
-					className="avatar-uploader"
-					showUploadList={false}
-					beforeUpload={beforeUpload}
-					onChange={handleChange}
-					customRequest={sendUploadReq}
-					style={{ width: '100%', objectFit: 'contain' }}
-				>
-					{uploadButton}
-				</Upload>
-			)}
+			<Upload showUploadList={false} beforeUpload={beforeUpload} onChange={handleChange} customRequest={sendUploadReq}>
+				<Button {...buttonProps} icon={<CameraOutlined />} type="primary">
+					Add photos
+				</Button>
+			</Upload>
 		</>
 	)
 }
 
-export default AvatarUpload
+export default ImageUpload

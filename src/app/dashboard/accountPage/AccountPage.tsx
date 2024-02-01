@@ -107,7 +107,7 @@ const AccountPage = ({}) => {
 				)}
 			</Row>
 			<div id="photos">
-				<PhotoSection />
+				<PhotoSection isMyAccount={isMyAccount} />
 			</div>
 			<div className={styles.main}>
 				<Anchor style={{ backgroundColor: 'white' }} direction="horizontal" items={anchorItems} targetOffset={42} />

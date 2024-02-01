@@ -79,7 +79,7 @@ const Profile = () => {
 			<Widget style={{ backgroundColor: 'transparent' }}>
 				<>
 					<Row style={{ width: '100%' }} gutter={[16, 0]}>
-						<Col>
+						{/* <Col>
 							<Card hoverable style={{ width: 240 }} cover={<ImageUpload type="avatar" account={account} />}>
 								<Card.Meta
 									title={`${account.first_name} ${account.last_name}`}
@@ -92,7 +92,7 @@ const Profile = () => {
 									}
 								/>
 							</Card>
-						</Col>
+						</Col> */}
 						<Col>
 							<Typography.Title level={3} style={{ marginTop: 0 }}>
 								Account details:

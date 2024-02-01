@@ -6,6 +6,7 @@
 	border-radius: 9px;
 	overflow: hidden;
 	flex-wrap: wrap;
+	position: relative;
 }
 
 .imgWrapper {
@@ -19,4 +20,10 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+.buttonContainer {
+	position: absolute;
+	bottom: 1rem;
+	right: 1rem;
 }

@@ -11,7 +11,7 @@ const dashboardContext = createContext<InitialDashboardContextState | null>({})
 
 const DashboardProvider = () => {
 	const dispatch = useAppDispatch()
-	const { authUser } = useTypedSelector((state) => state.auth)
+	const { authUser, status } = useTypedSelector((state) => state.auth)
 
 	const handleLogout = () => {
 		dispatch(logout())
@@ -21,7 +21,7 @@ const DashboardProvider = () => {
 		dispatch(refreshUser())
 	}, [])
 
-	if (!authUser)
+	if (!authUser || status === 'pending')
 		return (
 			<div className={styles.spinContainer}>
 				<Spin size="large" />

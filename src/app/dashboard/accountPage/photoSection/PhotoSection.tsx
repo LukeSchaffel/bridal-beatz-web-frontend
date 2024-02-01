@@ -1,18 +1,20 @@
-import { Image } from 'antd'
-
+import { Button, Image } from 'antd'
+import { CameraOutlined } from '@ant-design/icons'
 import { useTypedSelector } from '../../../hooks'
+
+import { ImageUpload } from '../../../components'
 import styles from './_photo_section.module.scss'
 
-const PhotoSection = () => {
+const PhotoSection = ({ isMyAccount }: { isMyAccount: boolean }) => {
 	const { accounts, selectedAccount, status } = useTypedSelector((state) => state.accounts)
 	return (
 		<div className={styles.photos}>
 			<Image.PreviewGroup
 				items={[
 					...selectedAccount.images.map((i) => i.url),
-					'https://picsum.photos/200/300',
-					'https://picsum.photos/400/600',
-					'https://picsum.photos/500/200',
+					// 'https://picsum.photos/200/300',
+					// 'https://picsum.photos/400/600',
+					// 'https://picsum.photos/500/200',
 				]}
 			>
 				<div className={styles.imgWrapper}>
@@ -27,15 +29,36 @@ const PhotoSection = () => {
 					/>
 				</div>
 				<div className={styles.imgWrapper}>
-					<Image height={'100%'} className={styles.img} alt="cover" src={'https://picsum.photos/200/300'} />
+					<Image
+						height={'100%'}
+						className={styles.img}
+						alt="cover"
+						src={selectedAccount?.images[1]?.url || 'https://picsum.photos/200/300'}
+					/>
 				</div>
 				<div className={styles.imgWrapper}>
-					<Image height={'100%'} className={styles.img} alt="cover" src={'https://picsum.photos/400/600'} />
+					<Image
+						height={'100%'}
+						className={styles.img}
+						alt="cover"
+						src={selectedAccount?.images[2]?.url || 'https://picsum.photos/400/600'}
+					/>
 				</div>
 				<div className={styles.imgWrapper}>
-					<Image height={'100%'} className={styles.img} alt="cover" src={'https://picsum.photos/500/200'} />
+					<Image
+						height={'100%'}
+						className={styles.img}
+						alt="cover"
+						src={selectedAccount?.images[3]?.url || 'https://picsum.photos/500/200'}
+					/>
 				</div>
 			</Image.PreviewGroup>
+			<div className={styles.buttonContainer} hidden={!isMyAccount}>
+				{/* <Button icon={<CameraOutlined />} type="primary">
+					Add photos
+				</Button> */}
+				<ImageUpload account={selectedAccount} type="avatar" buttonProps={{ type: 'primary' }} />
+			</div>
 		</div>
 	)
 }
