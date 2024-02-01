@@ -1,6 +1,7 @@
 import { Typography, Skeleton, Segmented, Select, Spin, Row, Col, Space, Input } from 'antd'
 import { useTypedSelector, useAppDispatch } from '../../hooks'
 
+import AccountAlert from './accountAlert/AccountAlert'
 import { getAccounts } from '../../../features/accounts/accounts.slice'
 import { useEffect, useRef, useState } from 'react'
 import ProfileCard from './profileCard/ProfileCard'
@@ -132,6 +133,7 @@ const HomePage = () => {
 	return (
 		<>
 			<div className={styles.main}>
+				<AccountAlert />
 				<Title>Welcome {account.first_name}</Title>
 				<Space.Compact direction="horizontal" block>
 					<Input.Search
