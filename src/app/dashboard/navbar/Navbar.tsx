@@ -30,7 +30,8 @@ const Navbar = () => {
 		},
 		{
 			label: 'My Profile',
-			key: 'profile',
+			// key: 'profile',
+			key: `account/${account?.account_id}`,
 			icon: <UserOutlined style={{ fontSize: 20 }} />,
 		},
 	]
@@ -39,8 +40,6 @@ const Navbar = () => {
 		confirm({
 			title: 'Are you sure you want to logout?',
 			onOk: () => {
-				console.log('logging out')
-
 				dispatch(logout())
 			},
 		})

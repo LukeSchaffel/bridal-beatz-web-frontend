@@ -42,7 +42,7 @@ const ProfileCard = ({ account }: IProfileCardProps) => {
 	return (
 		<Card
 			hoverable
-			style={{ maxWidth: 400, flex: 'auto' }}
+			style={{ maxWidth: 400, minWidth: 300, flex: '1' }}
 			cover={
 				<div style={{ width: '100%', height: '200px' }}>
 					<img

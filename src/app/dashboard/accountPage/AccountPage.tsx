@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Anchor, Button, Col, Divider, Row, Skeleton, Typography, theme, Image } from 'antd'
 import {
@@ -15,6 +15,10 @@ import styles from './_account_page.module.scss'
 import ReviewForm from './reviewForm/ReviewForm'
 import ReviewList from './reviewList/ReviewList'
 import { getAccount } from '../../../features/accounts/accounts.slice'
+import UpdateProfileForm from '../profile/UpdateProfileForm'
+import { updateAccount } from '../../../features/auth/auth.slice'
+import AboutMeForm from '../profile/AboutMeForm/AboutMeForm'
+import PhotoSection from './photoSection/PhotoSection'
 
 const { Title, Text, Paragraph } = Typography
 const { useToken } = theme
@@ -25,13 +29,17 @@ const AccountPage = ({}) => {
 	const navigate = useNavigate()
 	const account_id = parseInt(location.pathname.split('/')[3])
 	const { accounts, selectedAccount, status } = useTypedSelector((state) => state.accounts)
+	const { authUser, account: myAccount } = useTypedSelector((state) => state.auth)
+	const [modal, setModal] = useState(null)
+
+	const isMyAccount = myAccount?.account_id === selectedAccount?.account_id
 
 	useEffect(() => {
 		if (!account_id) {
 			navigate('/dashboard')
 		}
 		dispatch(getAccount(account_id))
-	}, [account_id, accounts])
+	}, [account_id, accounts, myAccount])
 
 	if (status === 'pending' || !selectedAccount) {
 		return (
@@ -46,6 +54,10 @@ const AccountPage = ({}) => {
 
 	const handleGoBack = () => {
 		navigate('/dashboard')
+	}
+
+	const handleChangeBio = (bio: string) => {
+		dispatch(updateAccount({ bio }))
 	}
 
 	const { email, first_name, last_name, genre, locations, bio, type, vendor_type, client_type, phone, about_me } =
@@ -81,54 +93,57 @@ const AccountPage = ({}) => {
 
 	return (
 		<div className={styles.page}>
-			<Button type="link" onClick={handleGoBack}>
-				<Row align="middle">
-					<CaretLeftOutlined /> {first_name} {last_name}
-				</Row>
-			</Button>
-			<div id="photos" className={styles.photos}>
-				<Image.PreviewGroup
-					items={[
-						...selectedAccount.images.map((i) => i.url),
-						'https://picsum.photos/200/300',
-						'https://picsum.photos/400/600',
-						'https://picsum.photos/500/200',
-					]}
-				>
-					<div className={styles.imgWrapper}>
-						<Image
-							height={'100%'}
-							className={styles.img}
-							alt="cover"
-							src={
-								selectedAccount?.images[0]?.url ||
-								'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
-							}
-						/>
-					</div>
-					<div className={styles.imgWrapper}>
-						<Image height={'100%'} className={styles.img} alt="cover" src={'https://picsum.photos/200/300'} />
-					</div>
-					<div className={styles.imgWrapper}>
-						<Image height={'100%'} className={styles.img} alt="cover" src={'https://picsum.photos/400/600'} />
-					</div>
-					<div className={styles.imgWrapper}>
-						<Image height={'100%'} className={styles.img} alt="cover" src={'https://picsum.photos/500/200'} />
-					</div>
-				</Image.PreviewGroup>
+			<UpdateProfileForm modal={modal} setModal={setModal} />
+			<Row align="middle" justify="space-between">
+				<Col>
+					<Button type="link" onClick={handleGoBack}>
+						<CaretLeftOutlined /> {first_name} {last_name}
+					</Button>
+				</Col>
+				{isMyAccount && (
+					<Col>
+						<Title style={{ margin: 0 }}>My Profile</Title>
+					</Col>
+				)}
+			</Row>
+			<div id="photos">
+				<PhotoSection />
 			</div>
 			<div className={styles.main}>
 				<Anchor style={{ backgroundColor: 'white' }} direction="horizontal" items={anchorItems} targetOffset={42} />
 				<div>
-					<Title level={2}>
-						{first_name} {last_name}
-					</Title>
+					<Row justify="space-between" align="middle">
+						<Col>
+							<Title level={2}>
+								{first_name} {last_name}
+							</Title>
+						</Col>
+						{isMyAccount && (
+							<Col>
+								<Button type="primary" onClick={() => setModal({})}>
+									Update profile
+								</Button>
+							</Col>
+						)}
+					</Row>
 				</div>
 				<Divider />
 				<div id="about">
-					<Title level={4}>About this {type}</Title>
-					<Title level={5}>{bio || 'No bio provided'}</Title>
-					<Paragraph>{about_me}</Paragraph>
+					{isMyAccount ? (
+						<>
+							<Title level={4}>About me</Title>
+							<Title editable={{ onChange: (text) => handleChangeBio(text), maxLength: 160 }} level={5}>
+								{bio || 'No bio provided'}
+							</Title>
+							<AboutMeForm account={myAccount} />
+						</>
+					) : (
+						<>
+							<Title level={4}>About this {type}</Title>
+							<Title level={5}>{bio || 'No bio provided'}</Title>
+							<Paragraph>{about_me}</Paragraph>
+						</>
+					)}
 				</div>
 				<Divider />
 				<div id="details">
@@ -157,7 +172,7 @@ const AccountPage = ({}) => {
 				<Divider />
 				<div id="reviews">
 					<ReviewList account={selectedAccount} />
-					<ReviewForm account={selectedAccount} />
+					{!isMyAccount && <ReviewForm account={selectedAccount} />}
 				</div>
 				<Divider />
 				<div id="contact">
