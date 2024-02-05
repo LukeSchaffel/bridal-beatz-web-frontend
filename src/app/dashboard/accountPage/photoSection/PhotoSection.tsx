@@ -1,5 +1,5 @@
-import { Button, Image } from 'antd'
-import { CameraOutlined } from '@ant-design/icons'
+import { Button, Image, Row, Modal } from 'antd'
+import { CameraOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useTypedSelector } from '../../../hooks'
 
 import { ImageUpload } from '../../../components'
@@ -7,15 +7,32 @@ import styles from './_photo_section.module.scss'
 
 const PhotoSection = ({ isMyAccount }: { isMyAccount: boolean }) => {
 	const { accounts, selectedAccount, status } = useTypedSelector((state) => state.accounts)
+	const [{ confirm }, contextHolder] = Modal.useModal()
+
+	const handleDeltePhoto = (idx) => {
+		confirm({
+			title: 'Delte this photo?',
+			onOk: () => console.log('asdf'),
+		})
+	}
+
 	return (
 		<div className={styles.photos}>
+			{contextHolder}
 			<Image.PreviewGroup
-				items={[
-					...selectedAccount.images.map((i) => i.url),
-					// 'https://picsum.photos/200/300',
-					// 'https://picsum.photos/400/600',
-					// 'https://picsum.photos/500/200',
-				]}
+				items={[...selectedAccount.images.map((i) => i.url)]}
+				preview={{
+					toolbarRender: (node, info) => {
+						return (
+							<Row align="middle">
+								<Button icon={<DeleteOutlined />} danger onClick={() => handleDeltePhoto(info.current)}>
+									Delete
+								</Button>
+								{node}
+							</Row>
+						)
+					},
+				}}
 			>
 				<div className={styles.imgWrapper}>
 					<Image
@@ -54,9 +71,6 @@ const PhotoSection = ({ isMyAccount }: { isMyAccount: boolean }) => {
 				</div>
 			</Image.PreviewGroup>
 			<div className={styles.buttonContainer} hidden={!isMyAccount}>
-				{/* <Button icon={<CameraOutlined />} type="primary">
-					Add photos
-				</Button> */}
 				<ImageUpload account={selectedAccount} type="avatar" buttonProps={{ type: 'primary' }} />
 			</div>
 		</div>
