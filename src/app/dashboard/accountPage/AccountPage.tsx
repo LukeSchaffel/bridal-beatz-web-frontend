@@ -126,6 +126,14 @@ const AccountPage = ({}) => {
 							</Col>
 						)}
 					</Row>
+					<Row>
+						<Button type="link" style={{ padding: 0 }}>
+							Youtube
+						</Button>
+						<Button type="link" style={{ padding: 0 }}>
+							+ Add link
+						</Button>
+					</Row>
 				</div>
 				<Divider />
 				<div id="about">

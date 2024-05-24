@@ -195,6 +195,42 @@ const UpdateProfileForm = ({ modal, setModal }: TUpdateProfileFormProps) => {
 							</div>
 						)}
 					</Form.List>
+					<Form.List name={'links'}>
+						{(fields, { add, remove }) => (
+							<div>
+								{fields.map((field, i) => {
+									return (
+										<Row gutter={[0, 0]} key={i} wrap={false} align={'middle'}>
+											<Col flex={1}>
+												<Row gutter={[16, 0]}>
+													<Col span={12}>
+														<Form.Item label="URL" name={[field.name, 'url']} rules={[{ required: true }]}>
+															<Input />
+														</Form.Item>
+													</Col>
+													<Col span={12}>
+														<Form.Item label="Title" name={[field.name, 'title']} rules={[{ required: true }]}>
+															<Input />
+														</Form.Item>
+													</Col>
+												</Row>
+											</Col>
+											<Col>
+												<Divider>
+													<Button onClick={() => remove(field.name)} icon={<DeleteOutlined />}></Button>
+												</Divider>
+											</Col>
+										</Row>
+									)
+								})}
+								<Row justify="center">
+									<Button type="link" onClick={() => add()}>
+										Add another link +
+									</Button>
+								</Row>
+							</div>
+						)}
+					</Form.List>
 				</Form>
 			</Modal>
 		</>
